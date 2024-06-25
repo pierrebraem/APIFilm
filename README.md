@@ -10,3 +10,11 @@ L'application est simple d'utilisation. La première page vous invite à saisir 
 # Vous voulez tester l'application ?
 Vous pouvez l'installer et le tester sur un appareil Android en téléchargeant les fichiers .apk situés dans les [releases de GitHub](https://github.com/pierrebraem/APIFilm/releases).
 L'application n'est pas disponible pour les appareils iOS.
+
+# Entrez une clé API
+Afin de pouvoir utiliser l'application, une clé d'API est requise pour interagir avec cette dernière.
+Dans un premier temps, vous devez créer un fichier `api.dart` dans le dossier `lib` du projet.
+Dans ce fichier, entrez la ligne de code suivante :
+```
+const String key = <Clé>;
+```
