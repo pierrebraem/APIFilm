@@ -18,3 +18,6 @@ Dans ce fichier, entrez la ligne de code suivante :
 ```
 const String key = <Clé>;
 ```
+# Générer un .apk
+Pour générer un .apk, vous devez ouvrir un terminal à la racine du projet et taper la commande `flutter build apk --build-name=<Version>`
+Le fichier .apk doit se trouver dans `build\app\outputs\flutter-apk\app-release.apk`
