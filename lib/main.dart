@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'classes/media.dart';
 import 'pages/recherche.dart';
+import 'pages/enregistrer.dart';
+import '../fonctions.dart' as fonctions;
 import 'styles.dart';
 
 void main() => runApp(const MyApp());
@@ -116,10 +118,26 @@ class _AccueilState extends State<Execution>{
             },
             child: const Text('Rechercher'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Enregistrer())
+              );
+            }, 
+            child: const Text('Consulter les médias enregistrés')
+          ),
+          /* BOUTON POUR LES TESTS. SUPPRIMER LE BOUTON AVANT LA SORTIE DE LA 1.2 */
+          ElevatedButton(
+            onPressed: () async {
+              await fonctions.deleteFile();
+            }, 
+            child: const Text('Supprimer fichier')
+          ),
           Expanded(
             child: Container(
               alignment: Alignment.bottomCenter,
-              child: const Text('Version 1.1')
+              child: const Text('Version 1.2-dev')
             ) 
           )
         ],

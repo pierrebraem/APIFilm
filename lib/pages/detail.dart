@@ -35,6 +35,10 @@ class Detail extends StatelessWidget{
                   Text("${(snapshot.data).released}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   Text("${(snapshot.data).genre}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   Image.network("${(snapshot.data).urlImage}", width: 300, height: 300, errorBuilder: (context, error, stackTrace) {return Image.asset('assets/images/non_images.png');}),
+                  IconButton(onPressed: () async {
+                      await fonctions.writeMedia(imdbID, (snapshot.data).title, (snapshot.data).released, (snapshot.data).type);
+                  }, 
+                  icon: const Icon(Icons.playlist_add)),
                   Text("Type de média : ${(snapshot.data).type}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   Text("${(snapshot.data).plot}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   Text("Notation : ${(snapshot.data).rated}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),

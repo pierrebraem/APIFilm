@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'classes/detail_media.dart';
 import 'classes/media.dart';
 import 'classes/episode.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'api.dart' as api;
 import 'dart:convert';
 
 const String apikey = api.key;
 
+/* Fonctions pour manipuler les données OMDb API*/
 Future<DetailMedia> recupDetailMedia(imdbID) async{
   final response = await http.get(Uri.parse("https://www.omdbapi.com/?i=$imdbID&apikey=$apikey"));
 
@@ -68,4 +72,36 @@ Future<List<List<Episode>>> recupEpisodes(imdbID, totalSaison) async{
     }
 
   return listeSaison;
+}
+
+/* Fonctions pour manipuler le fichier de sauvegarde */
+Future<File> get _localFile async {
+  final directory = await getApplicationDocumentsDirectory();
+
+  final path = directory.path;
+
+  return File('$path/media_saved.txt');
+}
+
+Future<File> writeMedia(imdbID, title, released, type) async {
+  final file = await _localFile;
+
+  return file.writeAsString('$imdbID, $title, $released, $type \n', mode: FileMode.append);
+}
+
+/* FONCTION TEMPORAIRE POUR LES TESTS. LA SUPPRIMER AVANT LA SORTIE DE LA 1.2 */
+Future<int> deleteFile() async {
+  final file = await _localFile;
+
+  await file.delete();
+
+  return 0;
+}
+
+Future<String> getAllSavedMedia() async {
+  final file = await _localFile;
+
+  final contents = await file.readAsString();
+
+  return contents;
 }
