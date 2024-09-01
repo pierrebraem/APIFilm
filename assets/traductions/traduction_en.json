@@ -1,0 +1,23 @@
+{
+    "translate": [
+        {
+            "searchInputLabel": "Enter a media's name",
+            "dropDownSearchMovie": "Movie",
+            "dropDownSearchSeries": "Series",
+            "dropDownSearchGames": "Games",
+            "dropDownSearchAll": "All",
+            "showDialogErrorTitle": "Input error",
+            "showDialogErrorContent": "Your input must have 3 caracters or more",
+            "SearchLabel": "Search",
+            "searchPageNoResult": "No result at your query",
+            "detailLabel": "Detail",
+            "detailMediaType": "Media type: ",
+            "detailAgeRestriction": "Age Restriction: ",
+            "detailDuration": "Duration: ",
+            "detailDirector": "Director: ",
+            "detailWriters": "Writers: ",
+            "detailActors" : "Actors: ",
+            "detailMetacritic": "Metacritic's score (on 100): "
+        }
+    ]
+}

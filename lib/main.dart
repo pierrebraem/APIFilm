@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'classes/media.dart';
 import 'pages/recherche.dart';
 import 'pages/enregistrer.dart';
@@ -40,6 +43,21 @@ class _AccueilState extends State<Execution>{
   late Future<List<Media>> listeFilm;
   String dropdownValue = 'movie';
 
+  List jsonTranslate = [];
+  Future<void> loadText() async {
+    final String jsonString = await rootBundle.loadString(await fonctions.loadTanslate());
+    final json = await jsonDecode(jsonString);
+    setState(() {
+      jsonTranslate = json['translate'];
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    loadText();
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -48,7 +66,7 @@ class _AccueilState extends State<Execution>{
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body: Column(
+      body: jsonTranslate.isNotEmpty?Column(
         children: <Widget>[
           Container(
             margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
@@ -56,7 +74,7 @@ class _AccueilState extends State<Execution>{
               controller: controller,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
-                hintText: 'Entrer le nom d\'un média',
+                hintText: jsonTranslate[0]['searchInputLabel'],
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                   borderSide: const BorderSide(color: Colors.black),
@@ -71,22 +89,22 @@ class _AccueilState extends State<Execution>{
                 dropdownValue = value!;
               });
             },
-            items: const [
+            items: [
               DropdownMenuItem<String>(
                 value: 'movie',
-                child: Text('Film')
+                child: Text(jsonTranslate[0]['dropDownSearchMovie'])
               ),
               DropdownMenuItem<String>(
                 value: 'series',
-                child: Text('Série')
+                child: Text(jsonTranslate[0]['dropDownSearchSeries'])
               ),
               DropdownMenuItem<String>(
                 value: 'game',
-                child: Text('Jeux'),
+                child: Text(jsonTranslate[0]['dropDownSearchGames']),
               ),
               DropdownMenuItem<String>(
                 value: 'all',
-                child: Text('Tout')
+                child: Text(jsonTranslate[0]['dropDownSearchAll'])
               )
             ]
           ),
@@ -96,8 +114,8 @@ class _AccueilState extends State<Execution>{
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Erreur de saisie'),
-                    content: const Text('Votre saisie doit comporter 3 caractères ou plus'),
+                    title: Text(jsonTranslate[0]['showDialogErrorTitle']),
+                    content: Text(jsonTranslate[0]['showDialogErrorContent']),
                     actions: <Widget>[
                       TextButton(
                         child: const Text('Ok'),
@@ -112,11 +130,11 @@ class _AccueilState extends State<Execution>{
               else{
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Recherche(text: controller.text, dropdownValue: dropdownValue)),
+                  MaterialPageRoute(builder: (context) => Recherche(text: controller.text, dropdownValue: dropdownValue, jsonTranslate: jsonTranslate)),
                 );
               }
             },
-            child: const Text('Rechercher'),
+            child: Text(jsonTranslate[0]['SearchLabel']),
           ),
           ElevatedButton(
             onPressed: () {
@@ -141,7 +159,7 @@ class _AccueilState extends State<Execution>{
             ) 
           )
         ],
-      ),
+      ): const Text("Loading json file..."),
     );
   }
 }

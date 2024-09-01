@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 import 'classes/detail_media.dart';
 import 'classes/media.dart';
 import 'classes/episode.dart';
@@ -7,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'api.dart' as api;
 import 'dart:convert';
+import 'dart:developer';
 
 const String apikey = api.key;
 
@@ -104,4 +107,16 @@ Future<String> getAllSavedMedia() async {
   final contents = await file.readAsString();
 
   return contents;
+}
+
+/* Fonction qui permet de charger un fichier de traduction en fonction de la langue du système */
+Future<String> loadTanslate() async {
+  final String langue = Platform.localeName;
+
+  if(langue.startsWith('fr_')){
+    return 'assets/traductions/traduction_fr.json';
+
+  }
+  
+  return 'assets/traductions/traduction_en.json';
 }

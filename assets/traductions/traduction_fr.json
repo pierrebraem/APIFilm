@@ -1,0 +1,23 @@
+{
+    "translate": [
+        {
+            "searchInputLabel": "Entrez le nom d'un média",
+            "dropDownSearchMovie": "Film",
+            "dropDownSearchSeries": "Série",
+            "dropDownSearchGames": "Jeux",
+            "dropDownSearchAll": "Tout",
+            "showDialogErrorTitle": "Erreur de saisie",
+            "showDialogErrorContent": "Votre saisie doit comporter 3 caractères ou plus",
+            "SearchLabel": "Rechercher",
+            "searchPageNoResult": "Aucun résultat à votre recherche",
+            "detailLabel": "Détail",
+            "detailMediaType": "Type de média : ",
+            "detailAgeRestriction": "Restrinction d'âge : ",
+            "detailDuration": "Durée : ",
+            "detailDirector": "Directeur : ",
+            "detailWriters": "Écriture : ",
+            "detailActors" : "Acteurs : ",
+            "detailMetacritic": "Note métacritic (sur 100) : "
+        }
+    ]
+}

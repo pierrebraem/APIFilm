@@ -5,10 +5,11 @@ import 'detail.dart';
 import '../fonctions.dart' as fonctions;
 
 class Recherche extends StatelessWidget{
-  Recherche({super.key, required this.text, required this.dropdownValue});
+  Recherche({super.key, required this.text, required this.dropdownValue, required this.jsonTranslate});
 
   final dynamic text;
   final dynamic dropdownValue;
+  final List jsonTranslate;
   late final Future<List<Media>> listeFilm = fonctions.recupMedia(text, dropdownValue);
 
   @override
@@ -17,7 +18,7 @@ class Recherche extends StatelessWidget{
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Recherche'),
+          title: Text(jsonTranslate[0]['SearchLabel']),
         ),
         body: Center(
             child: FutureBuilder(
@@ -25,7 +26,7 @@ class Recherche extends StatelessWidget{
                 builder: (context, AsyncSnapshot snapshot){
                   if(snapshot.hasData) {
                     if(snapshot.data.isEmpty){
-                      return const Text('Aucun résultat à votre recherche');
+                      return Text(jsonTranslate[0]['searchPageNoResult']);
                     }
                     return ListView.separated(
                       separatorBuilder: (context, index) =>
@@ -55,7 +56,7 @@ class Recherche extends StatelessWidget{
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (
-                                    context) => Detail(imdbID: '${(snapshot.data as dynamic)[index].imdbID}')
+                                    context) => Detail(imdbID: '${(snapshot.data as dynamic)[index].imdbID}', jsonTranslate: jsonTranslate,)
                                 ),
                               );
                             }

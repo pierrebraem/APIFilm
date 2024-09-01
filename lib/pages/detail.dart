@@ -5,9 +5,10 @@ import '../fonctions.dart' as fonctions;
 import '../styles.dart';
 
 class Detail extends StatelessWidget{
-  Detail({super.key, required this.imdbID});
+  Detail({super.key, required this.imdbID, required this.jsonTranslate});
 
   final dynamic imdbID;
+  final List jsonTranslate;
   late final Future<DetailMedia> filmDetail = fonctions.recupDetailMedia(imdbID);
 
   @override
@@ -17,7 +18,7 @@ class Detail extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detail'),
+        title: Text(jsonTranslate[0]['detailLabel']),
       ),
       body: Center(
         child: FutureBuilder(
@@ -39,14 +40,14 @@ class Detail extends StatelessWidget{
                       await fonctions.writeMedia(imdbID, (snapshot.data).title, (snapshot.data).released, (snapshot.data).type);
                   }, 
                   icon: const Icon(Icons.playlist_add)),
-                  Text("Type de média : ${(snapshot.data).type}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailMediaType'] + "${(snapshot.data).type}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   Text("${(snapshot.data).plot}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Notation : ${(snapshot.data).rated}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Durée : ${(snapshot.data).runtime}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Directeur : ${(snapshot.data).director}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Écriture : ${(snapshot.data).writer}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Acteurs : ${(snapshot.data).actors}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
-                  Text("Note métacritic sur 100 : ${(snapshot.data).metascore}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailAgeRestriction'] + "${(snapshot.data).rated}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailDuration'] + "${(snapshot.data).runtime}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailDirector'] + "${(snapshot.data).director}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailWriters'] + "${(snapshot.data).writer}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailActors'] + "${(snapshot.data).actors}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
+                  Text(jsonTranslate[0]['detailMetacritic'] + "${(snapshot.data).metascore}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)),
                   (snapshot.data).dvd != null && (snapshot.data).type != 'game' ? Text("DVD : " "${(snapshot.data).dvd}", textAlign: TextAlign.center, style: TextStyle(color: classicText.color)) : const Text(""),
 
 
